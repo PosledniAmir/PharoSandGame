@@ -29,7 +29,7 @@ PSGWindow >> initialize [
 	| morph |
 	super initialize.
 	self setLabel: 'Sand Game'.
-	self extent: 810 @ 640.
+	self extent: 820 @ 640.
 	gameLoop := PSGGameLoop new.
 	drawLoop := PSGDrawLoop new.
 	morph := drawLoop morph.

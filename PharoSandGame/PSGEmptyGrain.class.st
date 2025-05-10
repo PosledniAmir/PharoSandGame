@@ -29,6 +29,6 @@ PSGEmptyGrain >> isEmpty [
 
 { #category : 'resolving' }
 PSGEmptyGrain >> resolve: aNeighbourhood [
-	aNeighbourhood top canFall ifTrue: [ aNeighbourhood top ].
+	aNeighbourhood top canFall ifTrue: [ ^ aNeighbourhood top ].
 	^ self
 ]

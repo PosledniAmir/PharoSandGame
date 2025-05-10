@@ -42,7 +42,7 @@ PSGMatrix >> drawOn: aCanvas [
 		1 to: size x do: [ :x |
 			| item |
 			item := self at: x @ y.
-			item drawOn: aCanvas at: (x * PSGGrain size x) @ (y * PSGGrain size y) 
+			item drawOn: aCanvas at: ((x - 1) * PSGGrain size x) @ ((y - 1) * PSGGrain size y) 
 		] 
 	]
 ]
@@ -82,4 +82,9 @@ PSGMatrix >> resize: a2DSize with: aBlock [
             aBlock value
         ]
     ].
+]
+
+{ #category : 'accessing' }
+PSGMatrix >> size [
+	^ size
 ]

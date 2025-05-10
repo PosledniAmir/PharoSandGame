@@ -28,8 +28,8 @@ PSGGameLoop >> initialize [
 { #category : 'as yet unclassified' }
 PSGGameLoop >> leftClick: aPosition [
 	| locX locY |
-	locX := aPosition x // PSGGrain size x.
-	locY := aPosition y // PSGGrain size y.
+	locX := (aPosition x // PSGGrain size x) + 1.
+	locY := (aPosition y // PSGGrain size y) + 1.
 	(matrix inBounds: locX @ locY) 
 		ifFalse: [ ^ self ].
 	queue nextPut: [ matrix at: locX @ locY put: PSGSandGrain new ].

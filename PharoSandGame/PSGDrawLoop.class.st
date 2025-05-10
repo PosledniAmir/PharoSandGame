@@ -24,8 +24,8 @@ PSGDrawLoop >> initialize [
 	surface := AthensCairoSurface extent: 800@600.
 	morph := ImageMorph new.
 	morph form: surface asForm.
-	morph position: 5@20.
-	morph extent: 800@600.
+	morph position: 10@20.
+	morph extent: 820@640.
 ]
 
 { #category : 'accessing' }

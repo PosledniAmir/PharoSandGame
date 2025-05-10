@@ -25,6 +25,6 @@ PSGSandGrain >> isEmpty [
 
 { #category : 'resolving' }
 PSGSandGrain >> resolve: aNeighbourhood [
-	aNeighbourhood bottom isEmpty ifTrue: [ aNeighbourhood bottom ].
+	aNeighbourhood bottom isEmpty ifTrue: [ ^ aNeighbourhood bottom ].
 	^ self 
 ]
