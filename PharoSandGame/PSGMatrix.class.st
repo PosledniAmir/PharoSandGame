@@ -60,6 +60,20 @@ PSGMatrix >> initialize [
 	size := 0 @ 0.
 ]
 
+{ #category : 'accessing' }
+PSGMatrix >> neighbourhoodAt: aPosition with: anItem [
+	^ PSGNeighbourhood newFrom:{
+		self at: aPosition - (1 @ 1) or: anItem.
+		self at: aPosition - (0 @ 1) or: anItem.
+		self at: aPosition - (-1 @ 1) or: anItem.
+		self at: aPosition - (1 @ 0) or: anItem.
+		self at: aPosition + (1 @ 0) or: anItem.
+		self at: aPosition + (-1 @ 1) or: anItem.
+		self at: aPosition + (0 @ 1) or: anItem.
+		self at: aPosition + (1 @ 1) or: anItem.
+	}
+]
+
 { #category : 'initialization' }
 PSGMatrix >> resize: a2DSize with: aBlock [
     size := a2DSize.
