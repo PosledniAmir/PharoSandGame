@@ -36,13 +36,14 @@ PSGWindow >> initialize [
 	self addMorph: morph.
 	drawLoop draw: gameLoop matrix.
 	process := self gameLoopProcess.
+	self on: #windowClosed send: #terminate to: self.
 ]
 
 { #category : 'accessing' }
 PSGWindow >> runGameLoop [
     [true] whileTrue: [
 		| frameTime waitTime |
-        frameTime := Time millisecondClockValue + 30.
+        frameTime := Time millisecondClockValue + 50.
         gameLoop step.
         drawLoop draw: gameLoop matrix.
         waitTime := frameTime - Time millisecondClockValue.
@@ -51,4 +52,9 @@ PSGWindow >> runGameLoop [
         ].
     ].
 	^ self
+]
+
+{ #category : 'debugging actions' }
+PSGWindow >> terminate [
+	process terminate.
 ]
