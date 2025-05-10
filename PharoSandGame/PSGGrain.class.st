@@ -14,7 +14,7 @@ PSGGrain class >> size [
 	^ Size
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'drawing' }
 PSGGrain >> drawOn: aCanvas at: aPosition [
 	^ self subclassResponsibility 
 ]

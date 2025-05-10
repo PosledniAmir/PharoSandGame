@@ -22,6 +22,13 @@ PSGMatrix >> at: aPosition [
 ]
 
 { #category : 'accessing' }
+PSGMatrix >> at: aPosition or: anItem [
+	(self inBounds: aPosition)
+		ifTrue: [ ^ self at: aPosition ]
+		ifFalse: [ ^ anItem ]
+]
+
+{ #category : 'accessing' }
 PSGMatrix >> at: aPosition put: aGrain [
 	| row |
 	row := matrix at: aPosition y.

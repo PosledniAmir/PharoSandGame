@@ -5,7 +5,7 @@ Class {
 	#package : 'PharoSandGame'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'drawing' }
 PSGSandGrain >> drawOn: aCanvas at: aPosition [
    | rectangle |
    rectangle := aPosition corner: (aPosition + PSGGrain size).

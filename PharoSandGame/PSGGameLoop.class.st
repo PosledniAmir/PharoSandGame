@@ -9,6 +9,15 @@ Class {
 	#package : 'PharoSandGame'
 }
 
+{ #category : 'stepping' }
+PSGGameLoop >> eventStep [
+	| item |
+	item := queue nextOrNil.
+	item ifNil: [ ^ self ].
+	item value.
+	^ self
+]
+
 { #category : 'initialization' }
 PSGGameLoop >> initialize [
 	super initialize.
@@ -35,9 +44,11 @@ PSGGameLoop >> matrix [
 
 { #category : 'stepping' }
 PSGGameLoop >> step [
-	| item |
-	item := queue nextOrNil.
-	item ifNil: [ ^ self ].
-	item value.
-	^ self
+	self eventStep.
+	self worldStep.
+]
+
+{ #category : 'as yet unclassified' }
+PSGGameLoop >> worldStep [
+	self notImplemented 
 ]
