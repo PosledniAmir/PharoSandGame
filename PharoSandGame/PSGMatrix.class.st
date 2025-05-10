@@ -22,6 +22,13 @@ PSGMatrix >> at: aPosition [
 ]
 
 { #category : 'accessing' }
+PSGMatrix >> at: aPosition or: anItem [
+	(self inBounds: aPosition)
+		ifTrue: [ ^ self at: aPosition ]
+		ifFalse: [ ^ anItem ]
+]
+
+{ #category : 'accessing' }
 PSGMatrix >> at: aPosition put: aGrain [
 	| row |
 	row := matrix at: aPosition y.
@@ -35,7 +42,7 @@ PSGMatrix >> drawOn: aCanvas [
 		1 to: size x do: [ :x |
 			| item |
 			item := self at: x @ y.
-			item drawOn: aCanvas at: (x * PSGGrain size x) @ (y * PSGGrain size y) 
+			item drawOn: aCanvas at: ((x - 1) * PSGGrain size x) @ ((y - 1) * PSGGrain size y) 
 		] 
 	]
 ]
@@ -53,6 +60,20 @@ PSGMatrix >> initialize [
 	size := 0 @ 0.
 ]
 
+{ #category : 'accessing' }
+PSGMatrix >> neighbourhoodAt: aPosition with: anItem [
+	^ PSGNeighbourhood newFrom:{
+		self at: aPosition - (1 @ 1) or: anItem.
+		self at: aPosition - (0 @ 1) or: anItem.
+		self at: aPosition - (-1 @ 1) or: anItem.
+		self at: aPosition - (1 @ 0) or: anItem.
+		self at: aPosition + (1 @ 0) or: anItem.
+		self at: aPosition + (-1 @ 1) or: anItem.
+		self at: aPosition + (0 @ 1) or: anItem.
+		self at: aPosition + (1 @ 1) or: anItem.
+	}
+]
+
 { #category : 'initialization' }
 PSGMatrix >> resize: a2DSize with: aBlock [
     size := a2DSize.
@@ -61,4 +82,9 @@ PSGMatrix >> resize: a2DSize with: aBlock [
             aBlock value
         ]
     ].
+]
+
+{ #category : 'accessing' }
+PSGMatrix >> size [
+	^ size
 ]

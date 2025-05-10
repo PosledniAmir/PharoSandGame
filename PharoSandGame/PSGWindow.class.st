@@ -25,10 +25,11 @@ PSGWindow >> handleClick: anEvent [
 
 { #category : 'initialization' }
 PSGWindow >> initialize [
+
 	| morph |
 	super initialize.
 	self setLabel: 'Sand Game'.
-	self extent: 810@640.
+	self extent: 820 @ 640.
 	gameLoop := PSGGameLoop new.
 	drawLoop := PSGDrawLoop new.
 	morph := drawLoop morph.
@@ -36,13 +37,17 @@ PSGWindow >> initialize [
 	self addMorph: morph.
 	drawLoop draw: gameLoop matrix.
 	process := self gameLoopProcess.
+	self announcer
+		when: WindowClosed
+		do: [ :an | self terminate ]
+		for: self
 ]
 
 { #category : 'accessing' }
 PSGWindow >> runGameLoop [
     [true] whileTrue: [
 		| frameTime waitTime |
-        frameTime := Time millisecondClockValue + 30.
+        frameTime := Time millisecondClockValue + 50.
         gameLoop step.
         drawLoop draw: gameLoop matrix.
         waitTime := frameTime - Time millisecondClockValue.
@@ -51,4 +56,9 @@ PSGWindow >> runGameLoop [
         ].
     ].
 	^ self
+]
+
+{ #category : 'debugging actions' }
+PSGWindow >> terminate [
+	process terminate.
 ]

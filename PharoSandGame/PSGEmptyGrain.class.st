@@ -5,6 +5,11 @@ Class {
 	#package : 'PharoSandGame'
 }
 
+{ #category : 'testing' }
+PSGEmptyGrain >> canFall [
+	^ false
+]
+
 { #category : 'drawing' }
 PSGEmptyGrain >> drawOn: aCanvas at: aPosition [
    | rectangle paint  path |
@@ -15,4 +20,15 @@ PSGEmptyGrain >> drawOn: aCanvas at: aPosition [
 	paint width: 2.
    path := aCanvas createRectanglePath: rectangle.
 	aCanvas drawShape: path.
+]
+
+{ #category : 'testing' }
+PSGEmptyGrain >> isEmpty [
+	^ true
+]
+
+{ #category : 'resolving' }
+PSGEmptyGrain >> resolve: aNeighbourhood [
+	aNeighbourhood top canFall ifTrue: [ ^ aNeighbourhood top ].
+	^ self
 ]

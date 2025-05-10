@@ -9,6 +9,15 @@ Class {
 	#package : 'PharoSandGame'
 }
 
+{ #category : 'stepping' }
+PSGGameLoop >> eventStep [
+	| item |
+	item := queue nextOrNil.
+	item ifNil: [ ^ self ].
+	item value.
+	^ self
+]
+
 { #category : 'initialization' }
 PSGGameLoop >> initialize [
 	super initialize.
@@ -19,8 +28,8 @@ PSGGameLoop >> initialize [
 { #category : 'as yet unclassified' }
 PSGGameLoop >> leftClick: aPosition [
 	| locX locY |
-	locX := aPosition x // PSGGrain size x.
-	locY := aPosition y // PSGGrain size y.
+	locX := (aPosition x // PSGGrain size x) + 1.
+	locY := (aPosition y // PSGGrain size y) + 1.
 	(matrix inBounds: locX @ locY) 
 		ifFalse: [ ^ self ].
 	queue nextPut: [ matrix at: locX @ locY put: PSGSandGrain new ].
@@ -35,9 +44,28 @@ PSGGameLoop >> matrix [
 
 { #category : 'stepping' }
 PSGGameLoop >> step [
-	| item |
-	item := queue nextOrNil.
-	item ifNil: [ ^ self ].
-	item value.
-	^ self
+	self eventStep.
+	self worldStep.
+]
+
+{ #category : 'as yet unclassified' }
+PSGGameLoop >> worldStep [
+	| updatedMatrix |
+	updatedMatrix := PSGMatrix new: matrix size with: [ PSGEmptyGrain new ].
+	1 to: matrix size y do: [ :y |
+        1 to: matrix size x do: [ :x |
+            self worldStepAt: x @ y with: updatedMatrix 
+        ]
+    ].
+	matrix := updatedMatrix.
+]
+
+{ #category : 'accessing' }
+PSGGameLoop >> worldStepAt: aPosition with: aMatrix [
+	| item neighbourhood result |
+	item := matrix at: aPosition.
+	neighbourhood := matrix neighbourhoodAt: aPosition with: PSGBorderGrain new.
+	result := item resolve: neighbourhood.
+	aMatrix at: aPosition put: result.
+	
 ]
