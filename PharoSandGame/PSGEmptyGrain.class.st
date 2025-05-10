@@ -8,7 +8,9 @@ Class {
 { #category : 'drawing' }
 PSGEmptyGrain >> drawOn: aCanvas at: aPosition [
    | rectangle paint  path |
-   rectangle := aPosition corner: PSGGrain size. 
+   rectangle := aPosition corner: (aPosition + PSGGrain size).
+   aCanvas setPaint: Color white.
+   aCanvas drawShape: rectangle.
    paint := aCanvas setStrokePaint: Color black.
 	paint width: 2.
    path := aCanvas createRectanglePath: rectangle.
