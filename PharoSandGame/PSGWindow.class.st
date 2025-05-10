@@ -25,10 +25,11 @@ PSGWindow >> handleClick: anEvent [
 
 { #category : 'initialization' }
 PSGWindow >> initialize [
+
 	| morph |
 	super initialize.
 	self setLabel: 'Sand Game'.
-	self extent: 810@640.
+	self extent: 810 @ 640.
 	gameLoop := PSGGameLoop new.
 	drawLoop := PSGDrawLoop new.
 	morph := drawLoop morph.
@@ -36,7 +37,10 @@ PSGWindow >> initialize [
 	self addMorph: morph.
 	drawLoop draw: gameLoop matrix.
 	process := self gameLoopProcess.
-	self on: #windowClosed send: #terminate to: self.
+	self announcer
+		when: WindowClosed
+		do: [ :an | self terminate ]
+		for: self
 ]
 
 { #category : 'accessing' }
