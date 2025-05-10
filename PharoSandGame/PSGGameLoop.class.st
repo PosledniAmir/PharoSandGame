@@ -15,3 +15,8 @@ PSGGameLoop >> initialize [
 	queue := SharedQueue new.
 	matrix := PSGMatrix new: 80 @ 60 with: [ PSGEmptyGrain new ].
 ]
+
+{ #category : 'accessing' }
+PSGGameLoop >> matrix [
+	^ matrix
+]

@@ -13,3 +13,8 @@ PSGGrain class >> size [
 	Size ifNil: [ Size := 10@10 ].
 	^ Size
 ]
+
+{ #category : 'as yet unclassified' }
+PSGGrain >> drawOn: aCanvas at: aPosition [
+	^ self subclassResponsibility 
+]

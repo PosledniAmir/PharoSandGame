@@ -9,6 +9,15 @@ Class {
 	#package : 'PharoSandGame'
 }
 
+{ #category : 'drawing - general' }
+PSGDrawLoop >> draw: aMatrix [
+	surface drawDuring: [ :canvas |
+		 aMatrix drawOn: canvas ].
+	surface flush.
+	morph form: surface asForm.
+	morph changed.
+]
+
 { #category : 'initialization' }
 PSGDrawLoop >> initialize [
 	super initialize.

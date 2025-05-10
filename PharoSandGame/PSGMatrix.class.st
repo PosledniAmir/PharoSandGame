@@ -14,6 +14,24 @@ PSGMatrix class >> new: a2DSize with: aBlock [
 	^ self new resize: a2DSize with: aBlock
 ]
 
+{ #category : 'accessing' }
+PSGMatrix >> at: aPosition [
+	| row |
+	row := matrix at: aPosition y.
+	^ row at: aPosition x.
+]
+
+{ #category : 'drawing' }
+PSGMatrix >> drawOn: aCanvas [
+	1 to: size y do: [ :y | 
+		1 to: size x do: [ :x |
+			| item |
+			item := self at: x @ y.
+			item drawOn: aCanvas at: (x * PSGGrain size x) @ (y * PSGGrain size y) 
+		] 
+	]
+]
+
 { #category : 'initialization' }
 PSGMatrix >> initialize [
 	super initialize.
