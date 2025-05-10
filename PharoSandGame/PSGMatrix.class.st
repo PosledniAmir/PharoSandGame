@@ -21,6 +21,14 @@ PSGMatrix >> at: aPosition [
 	^ row at: aPosition x.
 ]
 
+{ #category : 'accessing' }
+PSGMatrix >> at: aPosition put: aGrain [
+	| row |
+	row := matrix at: aPosition y.
+	row at: aPosition x put: aGrain.
+	^ self
+]
+
 { #category : 'drawing' }
 PSGMatrix >> drawOn: aCanvas [
 	1 to: size y do: [ :y | 
