@@ -42,7 +42,7 @@ PSGWindow >> initialize [
 PSGWindow >> runGameLoop [
     [true] whileTrue: [
 		| frameTime waitTime |
-        frameTime := Time millisecondClockValue + 100.
+        frameTime := Time millisecondClockValue + 30.
         gameLoop step.
         drawLoop draw: gameLoop matrix.
         waitTime := frameTime - Time millisecondClockValue.
