@@ -32,7 +32,7 @@ PSGWindow >> initialize [
 	gameLoop := PSGGameLoop new.
 	drawLoop := PSGDrawLoop new.
 	morph := drawLoop morph.
-	morph on: #MouseDown send: #handleClick: to: self.
+	morph on: #mouseDown send: #handleClick: to: self.
 	self addMorph: morph.
 	drawLoop draw: gameLoop matrix.
 	process := self gameLoopProcess.

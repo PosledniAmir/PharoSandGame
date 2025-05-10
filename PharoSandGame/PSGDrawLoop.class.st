@@ -32,3 +32,8 @@ PSGDrawLoop >> initialize [
 PSGDrawLoop >> morph [
 	^ morph
 ]
+
+{ #category : 'accessing' }
+PSGDrawLoop >> position [
+	^ morph position
+]

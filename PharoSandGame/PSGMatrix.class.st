@@ -40,6 +40,12 @@ PSGMatrix >> drawOn: aCanvas [
 	]
 ]
 
+{ #category : 'ensure bounds' }
+PSGMatrix >> inBounds: aPosition [
+	^ (aPosition x between: 1 and: size x) and: [ 
+		aPosition y between: 1 and: size y ]
+]
+
 { #category : 'initialization' }
 PSGMatrix >> initialize [
 	super initialize.
