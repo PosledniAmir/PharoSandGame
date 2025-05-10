@@ -14,8 +14,18 @@ PSGGrain class >> size [
 	^ Size
 ]
 
+{ #category : 'testing' }
+PSGGrain >> canFall [
+	^ self subclassResponsibility 
+]
+
 { #category : 'drawing' }
 PSGGrain >> drawOn: aCanvas at: aPosition [
+	^ self subclassResponsibility 
+]
+
+{ #category : 'testing' }
+PSGGrain >> isEmpty [
 	^ self subclassResponsibility 
 ]
 
