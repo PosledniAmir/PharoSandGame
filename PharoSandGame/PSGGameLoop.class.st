@@ -50,5 +50,22 @@ PSGGameLoop >> step [
 
 { #category : 'as yet unclassified' }
 PSGGameLoop >> worldStep [
-	self notImplemented 
+	| updatedMatrix |
+	updatedMatrix := PSGMatrix new: matrix size with: [ PSGEmptyGrain new ].
+	1 to: matrix size y do: [ :y |
+        1 to: matrix size x do: [ :x |
+            self worldStepAt: x @ y with: updatedMatrix 
+        ]
+    ].
+	matrix := updatedMatrix.
+]
+
+{ #category : 'accessing' }
+PSGGameLoop >> worldStepAt: aPosition with: aMatrix [
+	| item neighbourhood result |
+	item := matrix at: aPosition.
+	neighbourhood := matrix neighbourhoodAt: aPosition with: PSGBorderGrain new.
+	result := item resolve: neighbourhood.
+	aMatrix at: aPosition put: result.
+	
 ]

@@ -18,3 +18,8 @@ PSGGrain class >> size [
 PSGGrain >> drawOn: aCanvas at: aPosition [
 	^ self subclassResponsibility 
 ]
+
+{ #category : 'resolving' }
+PSGGrain >> resolve: aNeighbourhood [
+	^ self subclassResponsibility 
+]
