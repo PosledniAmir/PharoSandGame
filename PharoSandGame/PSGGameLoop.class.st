@@ -65,7 +65,7 @@ PSGGameLoop >> worldStepAt: aPosition with: aMatrix [
 	| item neighbourhood result |
 	item := matrix at: aPosition.
 	neighbourhood := matrix neighbourhoodAt: aPosition with: PSGBorderGrain new.
-	result := item resolve: neighbourhood.
-	aMatrix at: aPosition put: result.
+	result := item resolve: neighbourhood at: aPosition.
+	result item isEmpty ifFalse: [ aMatrix at: result position put: result item ].
 	
 ]

@@ -20,7 +20,7 @@ PSGBorderGrain >> isEmpty [
 	^ false
 ]
 
-{ #category : 'resolving' }
-PSGBorderGrain >> resolve: aNeighbourhood [
-	^ self
+{ #category : 'as yet unclassified' }
+PSGBorderGrain >> resolve: aNeighbourhood at: aPosition [
+	^ PSGResolution item: self at: aPosition.
 ]

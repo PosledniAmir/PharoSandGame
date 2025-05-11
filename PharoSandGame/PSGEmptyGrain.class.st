@@ -12,14 +12,10 @@ PSGEmptyGrain >> canFall [
 
 { #category : 'drawing' }
 PSGEmptyGrain >> drawOn: aCanvas at: aPosition [
-   | rectangle paint  path |
+   | rectangle |
    rectangle := aPosition corner: (aPosition + PSGGrain size).
    aCanvas setPaint: Color white.
    aCanvas drawShape: rectangle.
-   paint := aCanvas setStrokePaint: Color black.
-	paint width: 2.
-   path := aCanvas createRectanglePath: rectangle.
-	aCanvas drawShape: path.
 ]
 
 { #category : 'testing' }
@@ -27,8 +23,7 @@ PSGEmptyGrain >> isEmpty [
 	^ true
 ]
 
-{ #category : 'resolving' }
-PSGEmptyGrain >> resolve: aNeighbourhood [
-	aNeighbourhood top canFall ifTrue: [ ^ aNeighbourhood top ].
-	^ self
+{ #category : 'as yet unclassified' }
+PSGEmptyGrain >> resolve: aNeighbourhood at: aPosition [
+	^ PSGResolution item: self at: aPosition
 ]
