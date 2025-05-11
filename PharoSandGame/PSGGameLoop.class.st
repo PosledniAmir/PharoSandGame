@@ -3,7 +3,9 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'queue',
-		'matrix'
+		'matrix',
+		'isMouseDown',
+		'mouseLocation'
 	],
 	#category : 'PharoSandGame',
 	#package : 'PharoSandGame'
@@ -23,18 +25,8 @@ PSGGameLoop >> initialize [
 	super initialize.
 	queue := SharedQueue new.
 	matrix := PSGMatrix new: 80 @ 60 with: [ PSGEmptyGrain new ].
-]
-
-{ #category : 'as yet unclassified' }
-PSGGameLoop >> leftClick: aPosition [
-	| locX locY |
-	locX := (aPosition x // PSGGrain size x) + 1.
-	locY := (aPosition y // PSGGrain size y) + 1.
-	(matrix inBounds: locX @ locY) 
-		ifFalse: [ ^ self ].
-	queue nextPut: [ matrix at: locX @ locY put: PSGSandGrain new ].
-	^ self
-
+	isMouseDown := false.
+	mouseLocation := -1 @ -1.
 ]
 
 { #category : 'accessing' }
@@ -42,8 +34,41 @@ PSGGameLoop >> matrix [
 	^ matrix
 ]
 
+{ #category : 'as yet unclassified' }
+PSGGameLoop >> mouseDown [
+	isMouseDown := true
+]
+
+{ #category : 'as yet unclassified' }
+PSGGameLoop >> mouseOver: aPosition [
+	| locX locY |
+	locX := (aPosition x // PSGGrain size x) + 1.
+	locY := (aPosition y // PSGGrain size y) + 1.
+	mouseLocation := locX @ locY.
+	^ self
+
+]
+
+{ #category : 'as yet unclassified' }
+PSGGameLoop >> mouseUp [
+	isMouseDown := false.
+]
+
+{ #category : 'as yet unclassified' }
+PSGGameLoop >> spawnStep [
+	| bottom |
+	isMouseDown ifFalse: [ ^ self  ].
+	(matrix inBounds: mouseLocation ) ifFalse: [ ^ self ].
+	(matrix at: mouseLocation ) isEmpty ifFalse: [ ^ self ].
+	bottom := PSGNeighbourhood bottomPosition: mouseLocation.
+	(matrix at: bottom or: PSGBorderGrain new) isEmpty ifFalse: [ ^ self ].
+	queue nextPut: [ matrix at: mouseLocation put: PSGSandGrain new ].
+	^ self
+]
+
 { #category : 'stepping' }
 PSGGameLoop >> step [
+	self spawnStep.
 	self eventStep.
 	self worldStep.
 ]
