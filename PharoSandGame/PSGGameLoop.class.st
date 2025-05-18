@@ -5,7 +5,8 @@ Class {
 		'matrix',
 		'isMouseDown',
 		'mouseLocation',
-		'activeQueue'
+		'activeQueue',
+		'cycle'
 	],
 	#category : 'PharoSandGame',
 	#package : 'PharoSandGame'
@@ -18,6 +19,7 @@ PSGGameLoop >> initialize [
 	isMouseDown := false.
 	mouseLocation := -1 @ -1.
 	activeQueue := SharedQueue new.
+	cycle := PSGRainbowCycle new.
 ]
 
 { #category : 'accessing' }
@@ -53,7 +55,7 @@ PSGGameLoop >> spawnStep [
 	(matrix at: mouseLocation ) isEmpty ifFalse: [ ^ self ].
 	bottom := PSGNeighbourhood bottomPosition: mouseLocation.
 	(matrix at: bottom or: PSGBorderGrain new) isEmpty ifFalse: [ ^ self ].
-	matrix at: mouseLocation put: PSGSandGrain new.
+	matrix at: mouseLocation put: (PSGColoredGrain new: cycle next).
 	activeQueue nextPut: mouseLocation.
 	^ self
 ]
