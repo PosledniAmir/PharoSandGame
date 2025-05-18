@@ -8,9 +8,49 @@ Class {
 	#package : 'PharoSandGame'
 }
 
+{ #category : 'as yet unclassified' }
+PSGNeighbourhood class >> bottomLeftPosition: aPosition [
+	^ aPosition + (-1 @ 1)
+]
+
+{ #category : 'as yet unclassified' }
+PSGNeighbourhood class >> bottomPosition: aPosition [
+	^ aPosition + (0 @ 1)
+]
+
+{ #category : 'as yet unclassified' }
+PSGNeighbourhood class >> bottomRightPosition: aPosition [
+	^ aPosition + (1 @ 1)
+]
+
+{ #category : 'as yet unclassified' }
+PSGNeighbourhood class >> leftPosition: aPosition [
+	^ aPosition - (1 @ 0)
+]
+
 { #category : 'instance creation' }
 PSGNeighbourhood class >> newFrom: anArray [
 	^ self new from: anArray 
+]
+
+{ #category : 'as yet unclassified' }
+PSGNeighbourhood class >> rightPosition: aPosition [
+	^ aPosition + (1 @ 0)
+]
+
+{ #category : 'as yet unclassified' }
+PSGNeighbourhood class >> topLeftPosition: aPosition [
+	^ aPosition - (1 @ 1)
+]
+
+{ #category : 'as yet unclassified' }
+PSGNeighbourhood class >> topPosition: aPosition [
+	^ aPosition - (0 @ 1)
+]
+
+{ #category : 'as yet unclassified' }
+PSGNeighbourhood class >> topRightPosition: aPosition [
+	^ aPosition - (-1 @ 1)
 ]
 
 { #category : 'accessing' }

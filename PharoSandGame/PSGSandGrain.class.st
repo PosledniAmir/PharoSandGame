@@ -23,8 +23,43 @@ PSGSandGrain >> isEmpty [
 	^ false
 ]
 
-{ #category : 'resolving' }
-PSGSandGrain >> resolve: aNeighbourhood [
-	aNeighbourhood bottom isEmpty ifTrue: [ ^ aNeighbourhood bottom ].
-	^ self 
+{ #category : 'as yet unclassified' }
+PSGSandGrain >> moveBottom: aPosition [
+	| bottom |
+	bottom := PSGNeighbourhood bottomPosition: aPosition.
+	^ PSGResolution item: self at: bottom 
+]
+
+{ #category : 'as yet unclassified' }
+PSGSandGrain >> moveBottomLeft: aPosition [
+	| bottomLeft |
+	bottomLeft := PSGNeighbourhood bottomLeftPosition: aPosition. 
+	^ PSGResolution item: self at: bottomLeft 
+]
+
+{ #category : 'as yet unclassified' }
+PSGSandGrain >> moveBottomLeftOrRight: aPosition [
+	| left |
+	left := { true . false } atRandom.
+	left ifTrue: [ ^ self moveBottomLeft: aPosition ].
+	^ self moveBottomRight: aPosition
+]
+
+{ #category : 'as yet unclassified' }
+PSGSandGrain >> moveBottomRight: aPosition [
+	| bottomRight |
+	bottomRight := PSGNeighbourhood bottomRightPosition: aPosition.
+	^ PSGResolution item: self at: bottomRight 
+]
+
+{ #category : 'as yet unclassified' }
+PSGSandGrain >> resolve: aNeighbourhood at: aPosition [
+	| canLeft canRight |
+	aNeighbourhood bottom isEmpty ifTrue: [ ^ self moveBottom: aPosition ].
+	canLeft := aNeighbourhood bottomLeft isEmpty.
+	canRight := aNeighbourhood bottomRight isEmpty.
+	(canLeft and: [ canRight ]) ifTrue: [ ^ self moveBottomLeftOrRight: aPosition ].
+	canLeft ifTrue: [ ^ self moveBottomLeft: aPosition ].
+	canRight ifTrue: [ ^ self moveBottomRight: aPosition ].
+	^ PSGResolution item: self at: aPosition
 ]

@@ -23,6 +23,24 @@ PSGWindow >> handleClick: anEvent [
 	gameLoop leftClick: local.
 ]
 
+{ #category : 'as yet unclassified' }
+PSGWindow >> handleMouseDown: anEvent [
+	gameLoop mouseDown
+]
+
+{ #category : 'as yet unclassified' }
+PSGWindow >> handleMouseOver: anEvent [
+	| global local |
+	global := anEvent position.
+	local := global - drawLoop position.
+	gameLoop mouseOver: local.
+]
+
+{ #category : 'as yet unclassified' }
+PSGWindow >> handleMouseUp: anEvent [
+	gameLoop mouseUp 
+]
+
 { #category : 'initialization' }
 PSGWindow >> initialize [
 
@@ -33,7 +51,9 @@ PSGWindow >> initialize [
 	gameLoop := PSGGameLoop new.
 	drawLoop := PSGDrawLoop new.
 	morph := drawLoop morph.
-	morph on: #mouseDown send: #handleClick: to: self.
+	morph on: #mouseDown send: #handleMouseDown: to: self.
+	morph on: #mouseUp send: #handleMouseUp: to: self.
+	morph on: #mouseMove send: #handleMouseOver: to: self.
 	self addMorph: morph.
 	drawLoop draw: gameLoop matrix.
 	process := self gameLoopProcess.

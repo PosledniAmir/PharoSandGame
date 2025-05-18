@@ -29,7 +29,7 @@ PSGGrain >> isEmpty [
 	^ self subclassResponsibility 
 ]
 
-{ #category : 'resolving' }
-PSGGrain >> resolve: aNeighbourhood [
+{ #category : 'as yet unclassified' }
+PSGGrain >> resolve: aNeighbourood at: aPosition [
 	^ self subclassResponsibility 
 ]
