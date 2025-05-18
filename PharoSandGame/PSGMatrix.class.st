@@ -10,6 +10,11 @@ Class {
 }
 
 { #category : 'instance creation' }
+PSGMatrix class >> new: aMatrix [
+	^ self new matrix: aMatrix.
+]
+
+{ #category : 'instance creation' }
 PSGMatrix class >> new: a2DSize with: aBlock [
 	^ self new resize: a2DSize with: aBlock
 ]
@@ -47,6 +52,11 @@ PSGMatrix >> drawOn: aCanvas [
 	]
 ]
 
+{ #category : 'as yet unclassified' }
+PSGMatrix >> flip [
+	^ self class new: matrix reverse
+]
+
 { #category : 'ensure bounds' }
 PSGMatrix >> inBounds: aPosition [
 	^ (aPosition x between: 1 and: size x) and: [ 
@@ -58,6 +68,15 @@ PSGMatrix >> initialize [
 	super initialize.
 	matrix := Array new: 0 withAll: nil.
 	size := 0 @ 0.
+]
+
+{ #category : 'accessing' }
+PSGMatrix >> matrix: aMatrix [
+	matrix := aMatrix.
+	size := matrix isEmpty 
+		ifTrue: [ 0 @ 0 ]
+		ifFalse: [ (matrix at: 1) size @ matrix size ]
+	
 ]
 
 { #category : 'accessing' }

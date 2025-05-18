@@ -23,6 +23,11 @@ PSGWindow >> handleClick: anEvent [
 	gameLoop leftClick: local.
 ]
 
+{ #category : 'events - processing' }
+PSGWindow >> handleKeyDown: anEvent [
+	anEvent keyCharacter = Character space ifTrue: [ gameLoop flip ]
+]
+
 { #category : 'as yet unclassified' }
 PSGWindow >> handleMouseDown: anEvent [
 	gameLoop mouseDown
@@ -54,6 +59,7 @@ PSGWindow >> initialize [
 	morph on: #mouseDown send: #handleMouseDown: to: self.
 	morph on: #mouseUp send: #handleMouseUp: to: self.
 	morph on: #mouseMove send: #handleMouseOver: to: self.
+	morph on: #keyDown send: #handleKeyDown: to: self.
 	self addMorph: morph.
 	drawLoop draw: gameLoop matrix.
 	process := self gameLoopProcess.

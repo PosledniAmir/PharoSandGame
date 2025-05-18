@@ -6,20 +6,48 @@ Class {
 		'isMouseDown',
 		'mouseLocation',
 		'activeQueue',
-		'cycle'
+		'cycle',
+		'flipEvent'
 	],
 	#category : 'PharoSandGame',
 	#package : 'PharoSandGame'
 }
 
+{ #category : 'as yet unclassified' }
+PSGGameLoop >> flip [
+	flipEvent := flipEvent not
+]
+
+{ #category : 'as yet unclassified' }
+PSGGameLoop >> flipStep [
+
+	| flipped transBlk queue |
+	flipped := matrix flip.
+	transBlk := [ :position | 
+		| x y s |
+		s := matrix size y.
+		x := position x.
+		y := s + 1 - position y.
+		x @ y
+		].
+	matrix := flipped.
+	queue := SharedQueue new.
+	activeQueue do: [ :pos | | result |
+		result := transBlk value: pos.
+		queue nextPut: result 
+	].
+	activeQueue := queue.
+]
+
 { #category : 'initialization' }
 PSGGameLoop >> initialize [
 	super initialize.
-	matrix := PSGMatrix new: 80 @ 60 with: [ PSGEmptyGrain new ].
+	matrix := PSGMatrix new: 160 @ 120 with: [ PSGEmptyGrain new ].
 	isMouseDown := false.
 	mouseLocation := -1 @ -1.
 	activeQueue := SharedQueue new.
 	cycle := PSGRainbowCycle new.
+	flipEvent := false.
 ]
 
 { #category : 'accessing' }
@@ -64,6 +92,9 @@ PSGGameLoop >> spawnStep [
 PSGGameLoop >> step [
 	self spawnStep.
 	self worldStep.
+	flipEvent ifFalse: [ ^ self ].
+	self flipStep.
+	flipEvent := false.
 ]
 
 { #category : 'as yet unclassified' }
