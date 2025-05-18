@@ -2,31 +2,22 @@ Class {
 	#name : 'PSGGameLoop',
 	#superclass : 'Object',
 	#instVars : [
-		'queue',
 		'matrix',
 		'isMouseDown',
-		'mouseLocation'
+		'mouseLocation',
+		'activeQueue'
 	],
 	#category : 'PharoSandGame',
 	#package : 'PharoSandGame'
 }
 
-{ #category : 'stepping' }
-PSGGameLoop >> eventStep [
-	| item |
-	item := queue nextOrNil.
-	item ifNil: [ ^ self ].
-	item value.
-	^ self
-]
-
 { #category : 'initialization' }
 PSGGameLoop >> initialize [
 	super initialize.
-	queue := SharedQueue new.
 	matrix := PSGMatrix new: 80 @ 60 with: [ PSGEmptyGrain new ].
 	isMouseDown := false.
 	mouseLocation := -1 @ -1.
+	activeQueue := SharedQueue new.
 ]
 
 { #category : 'accessing' }
@@ -62,26 +53,30 @@ PSGGameLoop >> spawnStep [
 	(matrix at: mouseLocation ) isEmpty ifFalse: [ ^ self ].
 	bottom := PSGNeighbourhood bottomPosition: mouseLocation.
 	(matrix at: bottom or: PSGBorderGrain new) isEmpty ifFalse: [ ^ self ].
-	queue nextPut: [ matrix at: mouseLocation put: PSGSandGrain new ].
+	matrix at: mouseLocation put: PSGSandGrain new.
+	activeQueue nextPut: mouseLocation.
 	^ self
 ]
 
 { #category : 'stepping' }
 PSGGameLoop >> step [
 	self spawnStep.
-	self eventStep.
 	self worldStep.
 ]
 
 { #category : 'as yet unclassified' }
 PSGGameLoop >> worldStep [
-	| updatedMatrix |
+	| updatedMatrix  nextLocation newQueue |
+	newQueue := OrderedCollection new.
 	updatedMatrix := PSGMatrix new: matrix size with: [ PSGEmptyGrain new ].
-	1 to: matrix size y do: [ :y |
-        1 to: matrix size x do: [ :x |
-            self worldStepAt: x @ y with: updatedMatrix 
-        ]
-    ].
+	nextLocation := activeQueue nextOrNil.
+	[ nextLocation notNil ] whileTrue: [ 
+		| resultPosition |
+		resultPosition := (self worldStepAt: nextLocation with: updatedMatrix).
+		resultPosition ifNotNil: [ newQueue add: resultPosition ].
+		nextLocation := activeQueue nextOrNil.
+	].
+	activeQueue nextPutAll: newQueue.
 	matrix := updatedMatrix.
 ]
 
@@ -91,6 +86,10 @@ PSGGameLoop >> worldStepAt: aPosition with: aMatrix [
 	item := matrix at: aPosition.
 	neighbourhood := matrix neighbourhoodAt: aPosition with: PSGBorderGrain new.
 	result := item resolve: neighbourhood at: aPosition.
-	result item isEmpty ifFalse: [ aMatrix at: result position put: result item ].
+	result item isEmpty ifFalse: [ 
+		aMatrix at: result position put: result item.
+		^ result position
+	].
+	^ nil
 	
 ]
