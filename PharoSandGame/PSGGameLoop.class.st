@@ -99,29 +99,30 @@ PSGGameLoop >> step [
 
 { #category : 'as yet unclassified' }
 PSGGameLoop >> worldStep [
-	| updatedMatrix  nextLocation newQueue |
+	| nextLocation newQueue |
 	newQueue := OrderedCollection new.
-	updatedMatrix := PSGMatrix new: matrix size with: [ PSGEmptyGrain new ].
 	nextLocation := activeQueue nextOrNil.
 	[ nextLocation notNil ] whileTrue: [ 
 		| resultPosition |
-		resultPosition := (self worldStepAt: nextLocation with: updatedMatrix).
+		resultPosition := (self worldStepAt: nextLocation with: matrix).
 		resultPosition ifNotNil: [ newQueue add: resultPosition ].
 		nextLocation := activeQueue nextOrNil.
 	].
 	activeQueue nextPutAll: newQueue.
-	matrix := updatedMatrix.
 ]
 
 { #category : 'accessing' }
 PSGGameLoop >> worldStepAt: aPosition with: aMatrix [
-	| item neighbourhood result |
+	| item neighbourhood result target can |
 	item := matrix at: aPosition.
 	neighbourhood := matrix neighbourhoodAt: aPosition with: PSGBorderGrain new.
 	result := item resolve: neighbourhood at: aPosition.
-	result item isEmpty ifFalse: [ 
+	target := aMatrix at: result position.
+	can := target isEmpty.
+	can ifTrue: [ 
+		aMatrix at: aPosition put: target.
 		aMatrix at: result position put: result item.
-		^ result position
+		^ result position 
 	].
 	^ nil
 	
