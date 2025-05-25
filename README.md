@@ -1,1 +1,2 @@
-# PharoSandGame
+# PharoSandGame 
+![Example](example.gif)
