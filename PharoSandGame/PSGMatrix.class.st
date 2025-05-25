@@ -19,6 +19,15 @@ PSGMatrix class >> new: a2DSize with: aBlock [
 	^ self new resize: a2DSize with: aBlock
 ]
 
+{ #category : 'as yet unclassified' }
+PSGMatrix >> allPositions [
+	^ (1 to: size y) flatCollect: [ :y |
+        (1 to: size x) collect: [ :x |
+            x @ y
+        ]
+    ].
+]
+
 { #category : 'accessing' }
 PSGMatrix >> at: aPosition [
 	| row |

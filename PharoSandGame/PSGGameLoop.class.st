@@ -32,10 +32,11 @@ PSGGameLoop >> flipStep [
 		].
 	matrix := flipped.
 	queue := SharedQueue new.
-	activeQueue do: [ :pos | | result |
-		result := transBlk value: pos.
-		queue nextPut: result 
-	].
+	(matrix allPositions 
+		reject: [:item | (matrix at: item) isEmpty ]) 
+		do: [ :item |
+			queue nextPut: item
+		].
 	activeQueue := queue.
 ]
 
@@ -105,7 +106,7 @@ PSGGameLoop >> worldStep [
 	[ nextLocation notNil ] whileTrue: [ 
 		| resultPosition |
 		resultPosition := (self worldStepAt: nextLocation with: matrix).
-		resultPosition ifNotNil: [ newQueue add: resultPosition ].
+		resultPosition ifNotNil: [ newQueue addAll: resultPosition ].
 		nextLocation := activeQueue nextOrNil.
 	].
 	activeQueue nextPutAll: newQueue.
@@ -119,10 +120,16 @@ PSGGameLoop >> worldStepAt: aPosition with: aMatrix [
 	result := item resolve: neighbourhood at: aPosition.
 	target := aMatrix at: result position.
 	can := target isEmpty.
-	can ifTrue: [ 
+	can ifTrue: [ | positions |
 		aMatrix at: aPosition put: target.
 		aMatrix at: result position put: result item.
-		^ result position 
+		positions := aPosition = result position 
+			ifTrue: [ { aPosition } ]
+			ifFalse: [ { aPosition . result position } ].
+		^ positions reject: [ :each | (aMatrix at: each) isEmpty ]
+	].
+	result item isEmpty ifFalse: [ 
+		^ { result position } 
 	].
 	^ nil
 	
