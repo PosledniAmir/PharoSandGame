@@ -21,11 +21,11 @@ PSGDrawLoop >> draw: aMatrix [
 { #category : 'initialization' }
 PSGDrawLoop >> initialize [
 	super initialize.
-	surface := AthensCairoSurface extent: 800@600.
+	surface := AthensCairoSurface extent: 600@600.
 	morph := ImageMorph new.
 	morph form: surface asForm.
 	morph position: 10@30.
-	morph extent: 820@640.
+	morph extent: 610@640.
 ]
 
 { #category : 'accessing' }

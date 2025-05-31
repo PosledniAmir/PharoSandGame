@@ -84,7 +84,7 @@ PSGMatrix >> matrix: aMatrix [
 	matrix := aMatrix.
 	size := matrix isEmpty 
 		ifTrue: [ 0 @ 0 ]
-		ifFalse: [ (matrix at: 1) size @ matrix size ]
+		ifFalse: [ matrix first size @ matrix size ]
 	
 ]
 
@@ -110,6 +110,18 @@ PSGMatrix >> resize: a2DSize with: aBlock [
             aBlock value
         ]
     ].
+]
+
+{ #category : 'as yet unclassified' }
+PSGMatrix >> rotateLeft [
+	| result |
+    result := (size x to: 1 by: -1) collect: [ :x |
+        (1 to: size y) collect: [ :y |
+            self at: x @ y
+        ]
+    ].
+   size := size y @ size x.
+	matrix := result
 ]
 
 { #category : 'accessing' }

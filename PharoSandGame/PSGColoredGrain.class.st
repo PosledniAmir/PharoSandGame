@@ -77,5 +77,5 @@ PSGColoredGrain >> resolve: aNeighbourhood at: aPosition [
 
 { #category : 'asserting' }
 PSGColoredGrain >> shouldMove [
-	^ 360 atRandom <= color hue
+	^ 36 atRandom <= ((color hue / 10) + 1)
 ]

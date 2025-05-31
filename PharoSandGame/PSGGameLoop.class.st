@@ -20,20 +20,12 @@ PSGGameLoop >> flip [
 
 { #category : 'as yet unclassified' }
 PSGGameLoop >> flipStep [
-
-	| flipped transBlk queue |
+	| flipped queue |
 	flipped := matrix flip.
-	transBlk := [ :position | 
-		| x y s |
-		s := matrix size y.
-		x := position x.
-		y := s + 1 - position y.
-		x @ y
-		].
 	matrix := flipped.
 	queue := SharedQueue new.
 	(matrix allPositions 
-		reject: [:item | (matrix at: item) isEmpty ]) 
+		reject: [:item | (matrix at: item) isEmpty ])  
 		do: [ :item |
 			queue nextPut: item
 		].
@@ -43,7 +35,7 @@ PSGGameLoop >> flipStep [
 { #category : 'initialization' }
 PSGGameLoop >> initialize [
 	super initialize.
-	matrix := PSGMatrix new: 160 @ 120 with: [ PSGEmptyGrain new ].
+	matrix := PSGMatrix new: 120 @ 120 with: [ PSGEmptyGrain new ].
 	isMouseDown := false.
 	mouseLocation := -1 @ -1.
 	activeQueue := SharedQueue new.
