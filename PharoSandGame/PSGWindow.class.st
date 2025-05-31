@@ -25,7 +25,9 @@ PSGWindow >> handleClick: anEvent [
 
 { #category : 'events - processing' }
 PSGWindow >> handleKeyDown: anEvent [
-	anEvent keyCharacter = Character space ifTrue: [ gameLoop flip ]
+	anEvent keyCharacter = Character space ifTrue: [ gameLoop keyEvent: PSGFlipEvent new ].
+	anEvent keyCharacter = Character arrowLeft ifTrue: [ gameLoop keyEvent: PSGRotateLeftEvent new ].
+	anEvent keyCharacter = Character arrowRight ifTrue: [ gameLoop keyEvent: PSGRotateRightEvent new ].
 ]
 
 { #category : 'as yet unclassified' }

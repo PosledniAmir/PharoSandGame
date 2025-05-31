@@ -124,6 +124,18 @@ PSGMatrix >> rotateLeft [
 	matrix := result
 ]
 
+{ #category : 'as yet unclassified' }
+PSGMatrix >> rotateRight [
+	| result |
+    result := (1 to: size x) collect: [ :x |
+        (size y to: 1 by: -1) collect: [ :y |
+            self at: x @ y
+        ]
+    ].
+   size := size y @ size x.
+	matrix := result
+]
+
 { #category : 'accessing' }
 PSGMatrix >> size [
 	^ size
