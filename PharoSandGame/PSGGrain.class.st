@@ -32,3 +32,8 @@ PSGGrain >> isEmpty [
 PSGGrain >> resolve: aNeighbourood at: aPosition [
 	^ self subclassResponsibility 
 ]
+
+{ #category : 'sorting' }
+PSGGrain >> sortKey [
+	^ 0
+]

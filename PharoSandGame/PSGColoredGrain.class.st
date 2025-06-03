@@ -82,3 +82,8 @@ PSGColoredGrain >> resolve: aNeighbourhood at: aPosition [
 PSGColoredGrain >> shouldMove [
 	^ 36 atRandom <= ((color hue / 10) + 1)
 ]
+
+{ #category : 'sorting' }
+PSGColoredGrain >> sortKey [
+	^ color hue
+]
