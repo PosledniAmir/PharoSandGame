@@ -9,6 +9,21 @@ Class {
 }
 
 { #category : 'transformations' }
+PSGNoneEvent class >> flip [
+	^ false
+]
+
+{ #category : 'transformations' }
+PSGNoneEvent class >> rotateLeft [
+	^ false
+]
+
+{ #category : 'transformations' }
+PSGNoneEvent class >> rotateRight [
+	^ false
+]
+
+{ #category : 'transformations' }
 PSGNoneEvent >> flip [
 	^ false
 ]
