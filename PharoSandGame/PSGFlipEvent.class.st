@@ -1,3 +1,6 @@
+"
+This represents an event that should flip matrix upside down.
+"
 Class {
 	#name : 'PSGFlipEvent',
 	#superclass : 'PSGEvent',
@@ -5,17 +8,17 @@ Class {
 	#package : 'PharoSandGame'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'transformations' }
 PSGFlipEvent >> flip [
 	^ true
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'transformations' }
 PSGFlipEvent >> rotateLeft [ 
 	^ false
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'transformations' }
 PSGFlipEvent >> rotateRight [
 	^ false
 ]

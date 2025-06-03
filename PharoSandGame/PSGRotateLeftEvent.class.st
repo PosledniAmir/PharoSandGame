@@ -1,3 +1,6 @@
+"
+This event means we should rotate the matrix counterclockwise.
+"
 Class {
 	#name : 'PSGRotateLeftEvent',
 	#superclass : 'PSGEvent',
@@ -5,17 +8,17 @@ Class {
 	#package : 'PharoSandGame'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'transformations' }
 PSGRotateLeftEvent >> flip [
 	^ false
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'transformations' }
 PSGRotateLeftEvent >> rotateLeft [
 	^ true
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'transformations' }
 PSGRotateLeftEvent >> rotateRight [
 	^ false
 ]

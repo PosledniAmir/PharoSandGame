@@ -1,3 +1,6 @@
+"
+This event means that nothing should happen to the matrix.
+"
 Class {
 	#name : 'PSGNoneEvent',
 	#superclass : 'PSGEvent',
@@ -5,17 +8,17 @@ Class {
 	#package : 'PharoSandGame'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'transformations' }
 PSGNoneEvent >> flip [
 	^ false
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'transformations' }
 PSGNoneEvent >> rotateLeft [
 	^ false
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'transformations' }
 PSGNoneEvent >> rotateRight [
 	^ false
 ]
