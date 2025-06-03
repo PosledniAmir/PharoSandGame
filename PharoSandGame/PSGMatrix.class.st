@@ -1,3 +1,6 @@
+"
+This class represents the visible matrix, that holds all the grains of sand. It should be square, so the clockwise rotation look nice :) but does not really have to.
+"
 Class {
 	#name : 'PSGMatrix',
 	#superclass : 'Object',
@@ -52,13 +55,18 @@ PSGMatrix >> at: aPosition put: aGrain [
 
 { #category : 'drawing' }
 PSGMatrix >> drawOn: aCanvas [
+	| items sortBlock |
+	sortBlock := [ :a :b | (self at: a) sortKey > (self at: b) sortKey ].
+	items := OrderedCollection new.
 	1 to: size y do: [ :y | 
-		1 to: size x do: [ :x |
-			| item |
-			item := self at: x @ y.
-			item drawOn: aCanvas at: ((x - 1) * PSGGrain size x) @ ((y - 1) * PSGGrain size y) 
-		] 
-	]
+		1 to: size x do: [ :x | items add: x @ y ] 
+	].
+	items := items sorted: sortBlock.
+	items do: [ :pos | 
+		| item |
+		item := self at: pos.
+		item drawOn: aCanvas at: ((pos x - 1) * PSGGrain size x) @ ((pos y - 1) * PSGGrain size y) 
+	].
 ]
 
 { #category : 'as yet unclassified' }
@@ -84,7 +92,7 @@ PSGMatrix >> matrix: aMatrix [
 	matrix := aMatrix.
 	size := matrix isEmpty 
 		ifTrue: [ 0 @ 0 ]
-		ifFalse: [ (matrix at: 1) size @ matrix size ]
+		ifFalse: [ matrix first size @ matrix size ]
 	
 ]
 
@@ -110,6 +118,30 @@ PSGMatrix >> resize: a2DSize with: aBlock [
             aBlock value
         ]
     ].
+]
+
+{ #category : 'as yet unclassified' }
+PSGMatrix >> rotateLeft [
+	| result |
+    result := (size x to: 1 by: -1) collect: [ :x |
+        (1 to: size y) collect: [ :y |
+            self at: x @ y
+        ]
+    ].
+   size := size y @ size x.
+	matrix := result
+]
+
+{ #category : 'as yet unclassified' }
+PSGMatrix >> rotateRight [
+	| result |
+    result := (1 to: size x) collect: [ :x |
+        (size y to: 1 by: -1) collect: [ :y |
+            self at: x @ y
+        ]
+    ].
+   size := size y @ size x.
+	matrix := result
 ]
 
 { #category : 'accessing' }

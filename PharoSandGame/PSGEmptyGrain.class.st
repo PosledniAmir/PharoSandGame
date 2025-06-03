@@ -1,3 +1,6 @@
+"
+This represents an empty space in PSGMatrix.
+"
 Class {
 	#name : 'PSGEmptyGrain',
 	#superclass : 'PSGGrain',
@@ -12,10 +15,7 @@ PSGEmptyGrain >> canFall [
 
 { #category : 'drawing' }
 PSGEmptyGrain >> drawOn: aCanvas at: aPosition [
-   | rectangle |
-   rectangle := aPosition corner: (aPosition + PSGGrain size).
-   aCanvas setPaint: Color white.
-   aCanvas drawShape: rectangle.
+   ^ self
 ]
 
 { #category : 'testing' }
@@ -23,7 +23,7 @@ PSGEmptyGrain >> isEmpty [
 	^ true
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'actions' }
 PSGEmptyGrain >> resolve: aNeighbourhood at: aPosition [
 	^ PSGResolution item: self at: aPosition
 ]

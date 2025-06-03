@@ -7,48 +7,34 @@ Class {
 		'mouseLocation',
 		'activeQueue',
 		'cycle',
-		'flipEvent'
+		'keyEvent'
 	],
 	#category : 'PharoSandGame',
 	#package : 'PharoSandGame'
 }
 
 { #category : 'as yet unclassified' }
-PSGGameLoop >> flip [
-	flipEvent := flipEvent not
-]
-
-{ #category : 'as yet unclassified' }
 PSGGameLoop >> flipStep [
-
-	| flipped transBlk queue |
+	| flipped |
 	flipped := matrix flip.
-	transBlk := [ :position | 
-		| x y s |
-		s := matrix size y.
-		x := position x.
-		y := s + 1 - position y.
-		x @ y
-		].
 	matrix := flipped.
-	queue := SharedQueue new.
-	(matrix allPositions 
-		reject: [:item | (matrix at: item) isEmpty ]) 
-		do: [ :item |
-			queue nextPut: item
-		].
-	activeQueue := queue.
+	self recalculateQueue.
 ]
 
 { #category : 'initialization' }
 PSGGameLoop >> initialize [
 	super initialize.
-	matrix := PSGMatrix new: 160 @ 120 with: [ PSGEmptyGrain new ].
+	matrix := PSGMatrix new: 120 @ 120 with: [ PSGEmptyGrain new ].
 	isMouseDown := false.
 	mouseLocation := -1 @ -1.
 	activeQueue := SharedQueue new.
 	cycle := PSGRainbowCycle new.
-	flipEvent := false.
+	keyEvent := PSGNoneEvent.
+]
+
+{ #category : 'accessing' }
+PSGGameLoop >> keyEvent: anEvent [
+	keyEvent := anEvent 
 ]
 
 { #category : 'accessing' }
@@ -77,6 +63,34 @@ PSGGameLoop >> mouseUp [
 ]
 
 { #category : 'as yet unclassified' }
+PSGGameLoop >> recalculateQueue [
+	| queue |
+	queue := SharedQueue new.
+	(matrix allPositions 
+		reject: [:item | (matrix at: item) isEmpty ])  
+		do: [ :item |
+			queue nextPut: item
+		].
+	activeQueue := queue.
+]
+
+{ #category : 'as yet unclassified' }
+PSGGameLoop >> rotateLeftStep [
+	| flipped |
+	flipped := matrix rotateLeft.
+	matrix := flipped.
+	self recalculateQueue.
+]
+
+{ #category : 'as yet unclassified' }
+PSGGameLoop >> rotateRightStep [
+	| flipped |
+	flipped := matrix rotateRight.
+	matrix := flipped.
+	self recalculateQueue.
+]
+
+{ #category : 'as yet unclassified' }
 PSGGameLoop >> spawnStep [
 	| bottom |
 	isMouseDown ifFalse: [ ^ self  ].
@@ -93,9 +107,10 @@ PSGGameLoop >> spawnStep [
 PSGGameLoop >> step [
 	self spawnStep.
 	self worldStep.
-	flipEvent ifFalse: [ ^ self ].
-	self flipStep.
-	flipEvent := false.
+	keyEvent flip ifTrue: [ self flipStep ].
+	keyEvent rotateLeft ifTrue: [ self rotateLeftStep ].
+	keyEvent rotateRight ifTrue: [ self rotateRightStep ].
+	keyEvent := PSGNoneEvent new.
 ]
 
 { #category : 'as yet unclassified' }

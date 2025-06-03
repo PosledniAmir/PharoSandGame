@@ -1,3 +1,6 @@
+"
+This class basically represents a named pair. This pair is a result of a resolution between 2 grains, it contains the item that should be put to a position in the PSGMatrix.
+"
 Class {
 	#name : 'PSGResolution',
 	#superclass : 'Object',
@@ -26,7 +29,7 @@ PSGResolution >> item [
 	^ item
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 PSGResolution >> item: anItem at: aPosition [
 	item := anItem.
 	position := aPosition.

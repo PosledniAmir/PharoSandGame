@@ -1,3 +1,6 @@
+"
+Colored grain, the hue of the color represents in some sense its falling speed.
+"
 Class {
 	#name : 'PSGColoredGrain',
 	#superclass : 'PSGSandGrain',
@@ -32,21 +35,21 @@ PSGColoredGrain >> initialize [
 	color := Color black.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
 PSGColoredGrain >> moveBottom: aPosition [
 	| bottom |
 	bottom := PSGNeighbourhood bottomPosition: aPosition.
 	^ PSGResolution item: self at: bottom 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
 PSGColoredGrain >> moveBottomLeft: aPosition [
 	| bottomLeft |
 	bottomLeft := PSGNeighbourhood bottomLeftPosition: aPosition. 
 	^ PSGResolution item: self at: bottomLeft 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
 PSGColoredGrain >> moveBottomLeftOrRight: aPosition [
 	| left |
 	left := { true . false } atRandom.
@@ -54,14 +57,14 @@ PSGColoredGrain >> moveBottomLeftOrRight: aPosition [
 	^ self moveBottomRight: aPosition
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
 PSGColoredGrain >> moveBottomRight: aPosition [
 	| bottomRight |
 	bottomRight := PSGNeighbourhood bottomRightPosition: aPosition.
 	^ PSGResolution item: self at: bottomRight 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'actions' }
 PSGColoredGrain >> resolve: aNeighbourhood at: aPosition [
 	| canLeft canRight canBottom shouldMove |
 	shouldMove := self shouldMove.
@@ -77,5 +80,10 @@ PSGColoredGrain >> resolve: aNeighbourhood at: aPosition [
 
 { #category : 'asserting' }
 PSGColoredGrain >> shouldMove [
-	^ 360 atRandom <= color hue
+	^ 36 atRandom <= ((color hue / 10) + 1)
+]
+
+{ #category : 'sorting' }
+PSGColoredGrain >> sortKey [
+	^ color hue
 ]

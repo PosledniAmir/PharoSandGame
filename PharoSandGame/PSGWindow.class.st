@@ -1,3 +1,7 @@
+"
+This class represents the Pharo sand game window.
+The command to spawn the window should be: ""PSGWindow new openInWorld."" nothing else is needed.
+"
 Class {
 	#name : 'PSGWindow',
 	#superclass : 'SystemWindow',
@@ -10,12 +14,12 @@ Class {
 	#package : 'PharoSandGame'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'process' }
 PSGWindow >> gameLoopProcess [
 	^ [ self runGameLoop ] forkAt: Processor userInterruptPriority named: 'Sand Game Loop'
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'handling' }
 PSGWindow >> handleClick: anEvent [
 	| global local |
 	global := anEvent position.
@@ -23,17 +27,19 @@ PSGWindow >> handleClick: anEvent [
 	gameLoop leftClick: local.
 ]
 
-{ #category : 'events - processing' }
+{ #category : 'handling' }
 PSGWindow >> handleKeyDown: anEvent [
-	anEvent keyCharacter = Character space ifTrue: [ gameLoop flip ]
+	anEvent keyCharacter = Character space ifTrue: [ gameLoop keyEvent: PSGFlipEvent new ].
+	anEvent keyCharacter = Character arrowLeft ifTrue: [ gameLoop keyEvent: PSGRotateLeftEvent new ].
+	anEvent keyCharacter = Character arrowRight ifTrue: [ gameLoop keyEvent: PSGRotateRightEvent new ].
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'handling' }
 PSGWindow >> handleMouseDown: anEvent [
 	gameLoop mouseDown
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'handling' }
 PSGWindow >> handleMouseOver: anEvent [
 	| global local |
 	global := anEvent position.
@@ -41,7 +47,7 @@ PSGWindow >> handleMouseOver: anEvent [
 	gameLoop mouseOver: local.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'handling' }
 PSGWindow >> handleMouseUp: anEvent [
 	gameLoop mouseUp 
 ]
@@ -52,7 +58,7 @@ PSGWindow >> initialize [
 	| morph |
 	super initialize.
 	self setLabel: 'Sand Game'.
-	self extent: 820 @ 640.
+	self extent: 620 @ 640.
 	gameLoop := PSGGameLoop new.
 	drawLoop := PSGDrawLoop new.
 	morph := drawLoop morph.
@@ -69,7 +75,7 @@ PSGWindow >> initialize [
 		for: self
 ]
 
-{ #category : 'accessing' }
+{ #category : 'process' }
 PSGWindow >> runGameLoop [
     [true] whileTrue: [
 		| frameTime waitTime |
@@ -84,7 +90,7 @@ PSGWindow >> runGameLoop [
 	^ self
 ]
 
-{ #category : 'debugging actions' }
+{ #category : 'process' }
 PSGWindow >> terminate [
 	process terminate.
 ]
