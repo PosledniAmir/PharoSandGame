@@ -1,5 +1,5 @@
 "
-This class represents different kinds of grains, we currently use PSGColoredGrain.
+This class represents different kinds of grains, we currently use PSGColoredGrain PSGEmptyGrain and PSGBorderGrain.
 "
 Class {
 	#name : 'PSGGrain',

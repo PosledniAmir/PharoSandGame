@@ -1,3 +1,6 @@
+"
+This represents an empty space in PSGMatrix.
+"
 Class {
 	#name : 'PSGEmptyGrain',
 	#superclass : 'PSGGrain',

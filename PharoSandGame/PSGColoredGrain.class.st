@@ -1,3 +1,6 @@
+"
+Colored grain, the hue of the color represents in some sense its falling speed.
+"
 Class {
 	#name : 'PSGColoredGrain',
 	#superclass : 'PSGSandGrain',

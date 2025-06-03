@@ -1,3 +1,6 @@
+"
+Basic black sand grain.
+"
 Class {
 	#name : 'PSGSandGrain',
 	#superclass : 'PSGGrain',
