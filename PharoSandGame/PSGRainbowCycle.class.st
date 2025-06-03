@@ -1,3 +1,6 @@
+"
+This class represents a state automaton that receives a color on message next and then it chooses the next color. It is basically an infinite iterator.
+"
 Class {
 	#name : 'PSGRainbowCycle',
 	#superclass : 'Object',

@@ -1,3 +1,6 @@
+"
+This class represents the 3 x 3 neighbourhood of items inside a PSGMatrix.
+"
 Class {
 	#name : 'PSGNeighbourhood',
 	#superclass : 'Object',
