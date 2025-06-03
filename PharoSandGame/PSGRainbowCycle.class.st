@@ -18,8 +18,8 @@ Class {
 PSGRainbowCycle >> initialize [
 	super initialize.
 	hue := 0.0.
-	saturation := 1.0.
-	brightness := 0.9.
+	saturation := 0.5.
+	brightness := 1.
 	step := 1
 ]
 
