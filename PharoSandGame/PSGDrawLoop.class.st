@@ -19,11 +19,21 @@ Class {
 { #category : 'drawing - general' }
 PSGDrawLoop >> draw: aMatrix [
 "accepts a PSGMatrix and draws it on the surface"
+	self drawBackground.
 	surface drawDuring: [ :canvas |
 		 aMatrix drawOn: canvas ].
 	surface flush.
 	morph form: surface asForm.
 	morph changed.
+]
+
+{ #category : 'as yet unclassified' }
+PSGDrawLoop >> drawBackground [	
+	surface drawDuring: [ :canvas |
+		canvas 
+			setPaint: (Color fromHexString: '#282828'); 
+			drawShape: (0@0 corner: surface extent) ].
+	surface flush.
 ]
 
 { #category : 'initialization' }

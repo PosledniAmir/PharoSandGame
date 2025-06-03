@@ -15,10 +15,7 @@ PSGEmptyGrain >> canFall [
 
 { #category : 'drawing' }
 PSGEmptyGrain >> drawOn: aCanvas at: aPosition [
-   | rectangle |
-   rectangle := aPosition corner: (aPosition + PSGGrain size).
-   aCanvas setPaint: Color white.
-   aCanvas drawShape: rectangle.
+   ^ self
 ]
 
 { #category : 'testing' }
