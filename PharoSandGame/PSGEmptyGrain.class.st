@@ -23,7 +23,7 @@ PSGEmptyGrain >> isEmpty [
 	^ true
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'actions' }
 PSGEmptyGrain >> resolve: aNeighbourhood at: aPosition [
 	^ PSGResolution item: self at: aPosition
 ]

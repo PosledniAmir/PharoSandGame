@@ -23,21 +23,21 @@ PSGSandGrain >> isEmpty [
 	^ false
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
 PSGSandGrain >> moveBottom: aPosition [
 	| bottom |
 	bottom := PSGNeighbourhood bottomPosition: aPosition.
 	^ PSGResolution item: self at: bottom 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
 PSGSandGrain >> moveBottomLeft: aPosition [
 	| bottomLeft |
 	bottomLeft := PSGNeighbourhood bottomLeftPosition: aPosition. 
 	^ PSGResolution item: self at: bottomLeft 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
 PSGSandGrain >> moveBottomLeftOrRight: aPosition [
 	| left |
 	left := { true . false } atRandom.
@@ -45,14 +45,14 @@ PSGSandGrain >> moveBottomLeftOrRight: aPosition [
 	^ self moveBottomRight: aPosition
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
 PSGSandGrain >> moveBottomRight: aPosition [
 	| bottomRight |
 	bottomRight := PSGNeighbourhood bottomRightPosition: aPosition.
 	^ PSGResolution item: self at: bottomRight 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'actions' }
 PSGSandGrain >> resolve: aNeighbourhood at: aPosition [
 	| canLeft canRight |
 	aNeighbourhood bottom isEmpty ifTrue: [ ^ self moveBottom: aPosition ].

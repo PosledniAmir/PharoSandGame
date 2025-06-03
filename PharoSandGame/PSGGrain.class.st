@@ -1,3 +1,6 @@
+"
+This class represents different kinds of grains, we currently use PSGColoredGrain.
+"
 Class {
 	#name : 'PSGGrain',
 	#superclass : 'Object',
@@ -25,7 +28,7 @@ PSGGrain >> isEmpty [
 	^ self subclassResponsibility 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'actions' }
 PSGGrain >> resolve: aNeighbourood at: aPosition [
 	^ self subclassResponsibility 
 ]

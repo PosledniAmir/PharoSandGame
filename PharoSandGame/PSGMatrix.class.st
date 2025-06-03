@@ -1,3 +1,6 @@
+"
+This class represents the visible matrix, that holds all the grains of sand. It should be square, so the clockwise rotation look nice :) but does not really have to.
+"
 Class {
 	#name : 'PSGMatrix',
 	#superclass : 'Object',
