@@ -1,3 +1,10 @@
+"
+This class represents the draw loop, it contains two members:
+* morph - useful if we want to put our drawing into a window.
+* surface - a cairo surface used for drawing.
+
+The main message we are interested is draw: which accepts a `PSGMatrix` class.
+"
 Class {
 	#name : 'PSGDrawLoop',
 	#superclass : 'Object',
@@ -11,6 +18,7 @@ Class {
 
 { #category : 'drawing - general' }
 PSGDrawLoop >> draw: aMatrix [
+"accepts a PSGMatrix and draws it on the surface"
 	surface drawDuring: [ :canvas |
 		 aMatrix drawOn: canvas ].
 	surface flush.
