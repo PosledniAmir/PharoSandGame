@@ -19,4 +19,5 @@ PSGWindow new openInWorld
 ### Controls
 - **Mouse Click & Drag**: Spawn colorful sand grains
 - **Spacebar**: Flip the entire simulation vertically
+- **Left and Right arrow**: Rotate the box (counter-)clockwise.
 - **Close Window**: Stops the simulation automatically
